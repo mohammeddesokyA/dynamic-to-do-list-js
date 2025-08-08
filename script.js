@@ -1,17 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // 1. اختيار زر "Add Task" وتخزينه في ثابت (constant) باسم addButton
     const addButton = document.getElementById("add-task-btn");
-    
-    // 2. اختيار حقل الإدخال وتخزينه في ثابت باسم taskInput
     const taskInput = document.getElementById("task-input");
-    
-    // 3. اختيار قائمة المهام وتخزينها في ثابت باسم taskList
     const taskList = document.getElementById("task-list");
 
     function addTask() {
         const taskText = taskInput.value.trim();
 
         if (taskText === "") {
+            alert("Please enter a task!");
             return;
         }
 
@@ -28,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         li.appendChild(removeButton);
         taskList.appendChild(li);
+
         taskInput.value = "";
     }
 
