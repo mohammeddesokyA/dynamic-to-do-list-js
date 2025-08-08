@@ -1,36 +1,32 @@
-// Array to store tasks
+// Array to hold tasks
 let tasks = [];
 
-// Get DOM elements
-const addButton = document.getElementById("add-task-btn");
-const taskInput = document.getElementById("task-input");
-const taskList = document.getElementById("task-list");
-
-// Load tasks from Local Storage on page load
-document.addEventListener("DOMContentLoaded", () => {
+// Load tasks on page load
+document.addEventListener('DOMContentLoaded', () => {
     loadTasks();
 });
 
-// Function to load tasks
+// Load tasks from Local Storage and populate the DOM
 function loadTasks() {
-    tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
-    tasks.forEach(taskText => addTask(taskText, false)); // don't save again while loading
+    tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+    tasks.forEach(taskText => addTask(taskText, false)); // false → don't resave to storage
 }
 
-// Function to save tasks to Local Storage
+// Save tasks array to Local Storage
 function saveTasksToStorage() {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
-// Function to add a task
+// Add a new task to DOM and Local Storage
 function addTask(taskText, save = true) {
-    const li = document.createElement("li");
+    const taskList = document.getElementById('task-list');
+    const li = document.createElement('li');
     li.textContent = taskText;
 
-    const removeBtn = document.createElement("button");
-    removeBtn.textContent = "Remove";
-    removeBtn.classList.add("remove");
-    removeBtn.addEventListener("click", () => {
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = 'Remove';
+    removeBtn.classList.add('remove');
+    removeBtn.addEventListener('click', () => {
         taskList.removeChild(li);
         tasks = tasks.filter(task => task !== taskText);
         saveTasksToStorage();
@@ -45,11 +41,12 @@ function addTask(taskText, save = true) {
     }
 }
 
-// Add task when clicking the button
-addButton.addEventListener("click", () => {
+// Hook add button to task addition
+document.getElementById('add-btn').addEventListener('click', () => {
+    const taskInput = document.getElementById('task-input');
     const taskText = taskInput.value.trim();
-    if (taskText !== "") {
+    if (taskText !== '') {
         addTask(taskText);
-        taskInput.value = "";
+        taskInput.value = '';
     }
 });
