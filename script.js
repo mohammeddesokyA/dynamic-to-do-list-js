@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Check if taskText is empty
         if (taskText === "") {
+            alert("Please enter a task!"); // Add an alert to prompt the user
             return; // Simply return without adding the task
         }
 
