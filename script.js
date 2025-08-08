@@ -6,10 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
     function addTask() {
         const taskText = taskInput.value.trim();
 
-        // Check if taskText is empty
         if (taskText === "") {
-            alert("Please enter a task!"); // Add an alert to prompt the user
-            return; // Simply return without adding the task
+            alert("Please enter a task!");
+            return;
         }
 
         const li = document.createElement("li");
@@ -24,13 +23,14 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         li.appendChild(removeButton);
+
         taskList.appendChild(li);
-        taskInput.value = ""; // Clear the input field
+
+        taskInput.value = "";
     }
 
     addButton.addEventListener("click", addTask);
 
-    // Allow adding tasks by pressing the "Enter" key
     taskInput.addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
             addTask();
