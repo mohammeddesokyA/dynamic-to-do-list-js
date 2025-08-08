@@ -6,23 +6,33 @@ document.addEventListener("DOMContentLoaded", function () {
     function addTask() {
         const taskText = taskInput.value.trim();
 
-        if (taskText !== "") {
-            const li = document.createElement("li");
-            li.textContent = taskText;
-
-            const removeButton = document.createElement("button");
-            removeButton.textContent = "Remove"; // النص المطلوب
-            removeButton.className = "remove-btn"; // الكلاس المطلوب
-
-            removeButton.onclick = function () {
-                taskList.removeChild(li);
-            };
-
-            li.appendChild(removeButton);
-            taskList.appendChild(li);
-            taskInput.value = "";
+        // Check if taskText is empty
+        if (taskText === "") {
+            return; // Simply return without adding the task
         }
+
+        const li = document.createElement("li");
+        li.textContent = taskText;
+
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "Remove";
+        removeButton.className = "remove-btn";
+
+        removeButton.onclick = function () {
+            taskList.removeChild(li);
+        };
+
+        li.appendChild(removeButton);
+        taskList.appendChild(li);
+        taskInput.value = ""; // Clear the input field
     }
 
     addButton.addEventListener("click", addTask);
+
+    // Allow adding tasks by pressing the "Enter" key
+    taskInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            addTask();
+        }
+    });
 });
