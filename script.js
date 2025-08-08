@@ -1,3 +1,8 @@
+// Select DOM Elements
+const addButton = document.getElementById("add-btn");
+const taskInput = document.getElementById("task-input");
+const taskList = document.getElementById("task-list");
+
 // Array to hold tasks
 let tasks = [];
 
@@ -19,7 +24,6 @@ function saveTasksToStorage() {
 
 // Add a new task to DOM and Local Storage
 function addTask(taskText, save = true) {
-    const taskList = document.getElementById('task-list');
     const li = document.createElement('li');
     li.textContent = taskText;
 
@@ -42,8 +46,7 @@ function addTask(taskText, save = true) {
 }
 
 // Hook add button to task addition
-document.getElementById('add-btn').addEventListener('click', () => {
-    const taskInput = document.getElementById('task-input');
+addButton.addEventListener('click', () => {
     const taskText = taskInput.value.trim();
     if (taskText !== '') {
         addTask(taskText);
