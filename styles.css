@@ -1,68 +1,151 @@
+:root {
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --card-bg: #ffffff;
+    --text-color: #333;
+    --text-secondary: #888;
+    --border-color: #eee;
+    --primary-color: #764ba2;
+    --hover-bg: #f9f9f9;
+    --task-bg: #f9f9f9;
+}
+
+[data-theme="dark"] {
+    --bg-gradient: linear-gradient(135deg, #1e1e2f 0%, #2d2d44 100%);
+    --card-bg: #2d2d44;
+    --text-color: #e0e0e0;
+    --text-secondary: #aaaaaa;
+    --border-color: #444;
+    --primary-color: #a29bfe;
+    --hover-bg: #3a3a55;
+    --task-bg: #35354f;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-color);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
+    transition: background 0.3s;
 }
 
 #todo-app {
     width: 100%;
-    max-width: 400px;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    max-width: 500px;
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transition: background 0.3s, color 0.3s;
 }
 
-#task-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#add-task-btn {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-#add-task-btn:hover {
-    background-color: #0056b3;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    background-color: #eeeeee;
-    margin-top: 8px;
-    padding: 10px;
-    border-radius: 4px;
+header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 20px;
 }
 
-.remove-btn {
-    cursor: pointer;
-    background-color: #ff6347;
+.input-group { display: flex; gap: 10px; margin-bottom: 20px; }
+
+#task-input {
+    flex-grow: 1;
+    padding: 12px;
+    background: var(--task-bg);
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+    border-radius: 8px;
+    outline: none;
+}
+
+#add-task-btn {
+    padding: 12px 20px;
+    background-color: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Controls & Filters */
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filters { display: flex; gap: 5px; }
+
+.filter-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-weight: bold;
     padding: 5px 10px;
 }
 
-.remove-btn:hover {
-    background-color: #d9534f;
+.filter-btn.active {
+    color: var(--primary-color);
+    background-color: var(--hover-bg);
+    border-radius: 4px;
 }
+
+.clear-btn {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+/* Task List */
+ul { list-style: none; padding: 0; }
+
+li {
+    background-color: var(--task-bg);
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 5px solid var(--primary-color);
+    animation: fadeIn 0.3s ease;
+    cursor: grab; 
+}
+
+li.dragging { opacity: 0.5; background: var(--hover-bg); }
+
+li.completed {
+    opacity: 0.7;
+    border-left-color: #28a745;
+}
+
+li.completed .task-text { text-decoration: line-through; }
+
+.task-info { display: flex; flex-direction: column; width: 70%; }
+.task-date { font-size: 0.75em; color: var(--text-secondary); margin-top: 4px; }
+
+button.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1em;
+    padding: 5px;
+    color: var(--text-secondary);
+    transition: color 0.2s;
+}
+
+.delete-btn:hover { color: #dc3545; }
+.check-btn:hover { color: #28a745; }
+.edit-btn:hover { color: #ffc107; }
+
+.hidden { display: none; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
